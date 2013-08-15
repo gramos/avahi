@@ -9,11 +9,16 @@ class Avahi::EntryGroup
 
   def <<(obj)
     iface, proto, flags = obj.iface, obj.proto, obj.flags
+
     case obj
+
     when Avahi::Address
+      puts obj
       @entry_group.AddAddress(iface, proto, flags, obj.host, obj.addr)
     when Avahi::Record
-      @entry_group.AddRecord(iface, proto, flags, obj.cname, obj.clazz, obj.type, nil, obj.rdata)
+      puts "RDATA --> #{obj.rdata}"
+      puts "CNAME --> #{obj.cname}"
+      @entry_group.AddRecord(iface, proto, flags, obj.cname, obj.clazz, obj.type, obj.ttl, obj.rdata)
     end
 
   end
